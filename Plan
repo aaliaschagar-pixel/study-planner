@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Class 8 Study Planner</title>
+<style>
+body{background:#0f172a;color:#e5e7eb;font-family:Arial;padding:20px}
+.day{background:#1e293b;padding:14px;border-radius:12px;margin-bottom:14px}
+.time{color:#93c5fd;font-weight:bold}
+button{padding:8px 14px;border-radius:8px;border:none;background:#38bdf8;font-weight:bold}
+</style>
+</head>
+<body>
+
+<h1>📅 Class 8 Interactive Study Planner (Dec 23 – Feb 15)</h1>
+<p id="progress"></p>
+<button onclick="localStorage.clear();location.reload()">Reset All</button>
+<div id="planner"></div>
+
+<script>
+const days = [
+["Dec 23","Science Ch 7 – Particulate Nature","History – Colonial Era in India"],
+["Dec 24","Science Ch 8 – Elements, Compounds & Mixtures","English Grammar – Tenses"],
+["Dec 25","Science Ch 9 – Solutions","Hindi Lit – एक आशीर्वाद"],
+["Dec 26","History – From Trade to Territory","English Lit – Fifth Word"],
+["Dec 27","Civics – Universal Franchise","Punjabi – ਪਾਠ 12"],
+["Dec 28","Science Ch 10 – Light","Weekly Revision"],
+["Dec 29","Geography – Natural Resources","Hindi Grammar – संज्ञा/सर्वनाम"],
+["Dec 30","Civics – Parliamentary System","English Writing – Diary Entry"],
+["Dec 31","Economics – Factors of Production","Punjabi Grammar – ਵਿਸਰਾਮ ਚਿੰਨ੍ਹ"],
+
+["Jan 1","Science Ch 7–8 Practice","Hindi Lit – दो गोरैया"],
+["Jan 2","English Grammar – Tenses + SVA","Punjabi – ਪਾਠ 13"],
+["Jan 3","Science Ch 11 – Keeping Time","English Poem – Magic Brush"],
+["Jan 4","Science Ch 12 – Harmony in Nature","Civics – Secularism"],
+["Jan 5","Science Ch 13 – Our Home Earth","FULL Revision"],
+
+["Jan 6","Science Ch 7 Practice","English Grammar – Tenses"],
+["Jan 7","History – Colonial Era Practice","Hindi Grammar – संज्ञा"],
+["Jan 8","Science Ch 8 Practice","English Lit – Fifth Word"],
+["Jan 9","Civics – Franchise Practice","Punjabi – ਪਾਠ 12"],
+["Jan 10","Science Ch 9 Practice","English Writing – Diary"],
+["Jan 11","Geography – Natural Resources","Hindi Lit – एक आशीर्वाद"],
+["Jan 12","Science Ch 10 – Light Practice","Diagrams"],
+
+["Jan 13","History – Trade to Territory","Punjabi Grammar"],
+["Jan 14","Civics – Parliament","English Poem – Magic Brush"],
+["Jan 15","Science Ch 11 Practice","Hindi Grammar – क्रिया"],
+["Jan 16","Economics – Factors","English Grammar – SVA"],
+["Jan 17","Science Ch 12 Practice","Punjabi – ਪਾਠ 13"],
+["Jan 18","Science Ch 13 Practice","English Lit – Waiting for the Rain"],
+["Jan 19","Civics – Secularism","Hindi Lit – दो गोरैया"],
+["Jan 20","ROUND 2 Revision","Weak topics"],
+
+["Jan 21","Science Ch 7–8 Revise","Numericals"],
+["Jan 22","History – Marathas + Colonial","Short answers"],
+["Jan 23","English Grammar – Full","Practice"],
+["Jan 24","Science Ch 9 Revise","Hindi Grammar – लिंग"],
+["Jan 25","Civics – Franchise + Parliament","Revise"],
+["Jan 26","Geography + Economics","Revise"],
+["Jan 27","English Literature – Prose","Revise"],
+["Jan 28","Science Ch 10 – Light","Numericals"],
+["Jan 29","Punjabi – All lessons","Revise"],
+["Jan 30","Hindi Literature","Revise"],
+["Jan 31","Science Ch 11–12","Revise"],
+
+["Feb 1","Science Ch 13","Civics – Secularism"],
+["Feb 2","English Writing – Diary & Descriptive","Practice"],
+["Feb 3","Hindi Grammar – शब्द भंडार","Revise"],
+["Feb 4","Punjabi Grammar + Writing","Revise"],
+["Feb 5","Coding – All chapters","Revise"],
+["Feb 6","Mixed Test","Analysis"],
+["Feb 7","Weak areas","Fix mistakes"],
+
+["Feb 8","Science Ch 7–9","Rapid Revise"],
+["Feb 9","Science Ch 10–13","Rapid Revise"],
+["Feb 10","English Grammar + Literature","Revise"],
+["Feb 11","SST – History + Civics","Revise"],
+["Feb 12","Geography + Economics","Revise"],
+["Feb 13","Hindi – Full","Revise"],
+["Feb 14","Punjabi + Coding","Light Revise"],
+["Feb 15","Light revision only","YOU ARE READY 💯"]
+];
+
+const planner=document.getElementById("planner");
+let total=0,done=0;
+
+days.forEach((d,i)=>{
+  const div=document.createElement("div");
+  div.className="day";
+  div.innerHTML=`<h3>${d[0]}</h3>`;
+  for(let j=1;j<=2;j++){
+    total++;
+    const key=`${i}-${j}`;
+    const c=localStorage.getItem(key)==="1";
+    if(c)done++;
+    div.innerHTML+=`
+    <div>
+    <input type="checkbox" ${c?"checked":""}
+    onchange="localStorage.setItem('${key}',this.checked?1:0);location.reload()">
+    <span class="time">⏰ Study:</span> ${d[j]}
+    </div>`;
+  }
+  planner.appendChild(div);
+});
+
+document.getElementById("progress").innerText=
+`Progress: ${done}/${total} tasks completed`;
+</script>
+
+</body>
+</html>
